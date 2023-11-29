@@ -154,6 +154,8 @@ def _sampler_params(
 ) -> dict[str, Any]:
     config = style.get_sampler_config(upscale, live.is_active)
     sampler_name = {
+        "Euler": "euler",
+        "Euler A": "euler_ancestral",
         "DDIM": "ddim",
         "DPM++ 2M": "dpmpp_2m",
         "DPM++ 2M Karras": "dpmpp_2m",
@@ -162,6 +164,8 @@ def _sampler_params(
         "LCM": "lcm",
     }[config.sampler]
     sampler_scheduler = {
+        "Euler": "normal",
+        "Euler A": "normal",
         "DDIM": "ddim_uniform",
         "DPM++ 2M": "normal",
         "DPM++ 2M Karras": "karras",

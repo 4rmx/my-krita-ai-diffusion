@@ -56,6 +56,8 @@ class SDVersion(Enum):
 
 
 sampler_options = [
+    "Euler",
+    "Euler A",
     "DDIM",
     "DPM++ 2M",
     "DPM++ 2M Karras",
