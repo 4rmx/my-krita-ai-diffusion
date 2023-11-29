@@ -117,17 +117,17 @@ class Settings(QObject):
 
     prompt_line_count: int
     _prompt_line_count = Setting(
-        "Prompt Line Count", 2, "Size of the text editor for image descriptions"
+        "Prompt Line Count", 4, "Size of the text editor for image descriptions"
     )
 
     show_negative_prompt: bool
     _show_negative_prompt = Setting(
-        "Negative Prompt", False, "Show text editor to describe things to avoid"
+        "Negative Prompt", True, "Show text editor to describe things to avoid"
     )
 
     show_control_end: bool
     _show_control_end = Setting(
-        "Control ending step", False, "Show control ending step ratio"
+        "Control ending step", True, "Show control ending step ratio"
     )
 
     history_size: int
