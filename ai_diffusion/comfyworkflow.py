@@ -133,7 +133,7 @@ class ComfyWorkflow:
         return self.add("EmptyLatentImage", 1, width=width, height=height, batch_size=batch_size)
 
     def clip_text_encode(self, clip: Output, text: str):
-        return self.add("CLIPTextEncode", 1, clip=clip, text=text)
+        return self.add("BNK_CLIPTextEncodeAdvanced", 1, clip=clip, text=text, token_normalization="mean", weight_interpretation="A1111")
 
     def conditioning_area(self, conditioning: Output, area: Bounds, strength=1.0):
         return self.add(
