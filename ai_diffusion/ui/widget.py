@@ -696,7 +696,7 @@ class GenerationWidget(QWidget):
         self.prompt_textbox.changed.connect(self.change_prompt)
         self.prompt_textbox.activated.connect(self.generate)
 
-        self.negative_textbox = TextPromptWidget(line_count=1, is_negative=True, parent=self)
+        self.negative_textbox = TextPromptWidget(line_count=2, is_negative=True, parent=self)
         self.negative_textbox.setVisible(settings.show_negative_prompt)
         self.negative_textbox.changed.connect(self.change_negative_prompt)
         self.negative_textbox.activated.connect(self.generate)
@@ -1142,10 +1142,11 @@ class LiveWidget(QWidget):
         self.add_control_button = ControlLayerButton(self)
         self.add_control_button.clicked.connect(self.control_list.add)
 
-        self.prompt_textbox = TextPromptWidget(line_count=1, parent=self)
+        self.prompt_textbox = TextPromptWidget(parent=self)
+        self.prompt_textbox.line_count = settings.prompt_line_count
         self.prompt_textbox.changed.connect(self.change_prompt)
 
-        self.negative_textbox = TextPromptWidget(line_count=1, is_negative=True, parent=self)
+        self.negative_textbox = TextPromptWidget(line_count=2, is_negative=True, parent=self)
         self.negative_textbox.setVisible(settings.show_negative_prompt)
         self.negative_textbox.changed.connect(self.change_negative_prompt)
 
