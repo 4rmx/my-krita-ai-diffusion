@@ -726,6 +726,8 @@ class StylePresets(SettingsTab):
         add("loras", LoraList(StyleSettings.loras, self))
         add("style_prompt", LineEditSetting(StyleSettings.style_prompt, self))
         add("negative_prompt", LineEditSetting(StyleSettings.negative_prompt, self))
+        # add clip skip
+        add("clip_skip", SliderSetting(StyleSettings.clip_skip, self, -2, -1)),
         add("vae", ComboBoxSetting(StyleSettings.vae, self))
 
         sdesc = "Configure sampler type, steps and CFG to tweak the quality of generated images."

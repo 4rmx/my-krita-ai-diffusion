@@ -108,6 +108,8 @@ class StyleSettings:
         "Model to encode and decode images. Commonly affects saturation and sharpness.",
     )
 
+    clip_skip = Setting("Clip Skip", -2)
+
     sampler = Setting(
         "Sampler",
         "DPM++ 2M Karras",
@@ -153,6 +155,7 @@ class Style:
     loras: list[dict[str, str | float]]
     style_prompt: str = StyleSettings.style_prompt.default
     negative_prompt: str = StyleSettings.negative_prompt.default
+    clip_skip: int = StyleSettings.clip_skip.default
     vae: str = StyleSettings.vae.default
     sampler: str = StyleSettings.sampler.default
     sampler_steps: int = StyleSettings.sampler_steps.default

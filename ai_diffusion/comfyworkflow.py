@@ -103,6 +103,9 @@ class ComfyWorkflow:
     def load_vae(self, vae_name: str):
         return self.add_cached("VAELoader", 1, vae_name=vae_name)
 
+    def clip_set_last_layer(self, clip: Output, stop_at_clip_layer):
+        return self.add("CLIPSetLastLayer", 1, clip=clip, stop_at_clip_layer=stop_at_clip_layer)
+
     def load_controlnet(self, controlnet: str):
         return self.add_cached("ControlNetLoader", 1, control_net_name=controlnet)
 
