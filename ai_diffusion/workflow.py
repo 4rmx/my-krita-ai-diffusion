@@ -609,10 +609,10 @@ def upscale_simple(comfy: Client, image: Image, model: str, factor: float):
 
 
 def upscale_tiled(
-    comfy: Client, image: Image, model: str, factor: float, style: Style, strength: float
+    comfy: Client, image: Image, model: str, factor: float, style: Style, strength: float, cond: Conditioning
 ):
     sd_ver = resolve_sd_version(style, comfy)
-    cond = Conditioning("4k uhd")
+    # cond = Conditioning("4k uhd")
     target_extent = image.extent * factor
     if sd_ver is SDVersion.sd15:
         tile_count = target_extent.longest_side / 768

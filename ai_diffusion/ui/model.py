@@ -253,18 +253,19 @@ class Model(QObject):
     def upscale_image(self):
         image = self._doc.get_image(Bounds(0, 0, *self._doc.extent))
         job = self.jobs.add_upscale(Bounds(0, 0, *self.upscale.target_extent))
+        conditioning = Conditioning(self.prompt, self.negative_prompt)
         self.clear_error()
         self.task = eventloop.run(
-            _report_errors(self, self._upscale_image(job, image, copy(self.upscale)))
+            _report_errors(self, self._upscale_image(job, image, copy(self.upscale), conditioning))
         )
 
-    async def _upscale_image(self, job: Job, image: Image, params: UpscaleParams):
+    async def _upscale_image(self, job: Job, image: Image, params: UpscaleParams, conditioning: Conditioning):
         client = Connection.instance().client
         if params.upscaler == "":
             params.upscaler = client.default_upscaler
         if params.use_diffusion:
             work = workflow.upscale_tiled(
-                client, image, params.upscaler, params.factor, self.style, params.strength
+                client, image, params.upscaler, params.factor, self.style, params.strength, conditioning
             )
         else:
             work = workflow.upscale_simple(client, image, params.upscaler, params.factor)

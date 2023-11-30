@@ -903,6 +903,21 @@ class UpscaleWidget(QWidget):
         layout.addWidget(self.target_label, alignment=Qt.AlignmentFlag.AlignRight)
         layout.addSpacing(6)
 
+        self.prompt_textbox = TextPromptWidget(parent=self)
+        self.prompt_textbox.line_count = settings.prompt_line_count
+        self.prompt_textbox.changed.connect(self.change_prompt)
+
+        self.negative_textbox = TextPromptWidget(line_count=2, is_negative=True, parent=self)
+        self.negative_textbox.setVisible(settings.show_negative_prompt)
+        self.negative_textbox.changed.connect(self.change_negative_prompt)
+
+        prompt_layout = QVBoxLayout()
+        prompt_layout.setContentsMargins(0, 0, 0, 0)
+        prompt_layout.setSpacing(2)
+        prompt_layout.addWidget(self.prompt_textbox)
+        prompt_layout.addWidget(self.negative_textbox)
+        layout.addLayout(prompt_layout)
+
         self.refinement_checkbox = QGroupBox("Refine upscaled image", self)
         self.refinement_checkbox.setCheckable(True)
         self.refinement_checkbox.toggled.connect(self.change_refinement)
@@ -977,6 +992,8 @@ class UpscaleWidget(QWidget):
         self.factor_slider.setValue(int(params.factor * 100))
         self.factor_input.setValue(params.factor)
         self.update_target_extent()
+        self.prompt_textbox.text = self.model.prompt
+        self.negative_textbox.text = self.model.negative_prompt
         self.refinement_checkbox.setChecked(params.use_diffusion)
         self.style_select.value = self.model.style
         self.strength_slider.setValue(int(params.strength * 100))
@@ -1046,6 +1063,12 @@ class UpscaleWidget(QWidget):
     def change_style(self):
         if self._model is not None:
             self.model.style = self.style_select.value
+    
+    def change_prompt(self):
+        self.model.prompt = self.prompt_textbox.text
+    
+    def change_negative_prompt(self):
+        self.model.negative_prompt = self.negative_textbox.text
 
     def change_strength(self, value: int):
         self.model.upscale.strength = value / 100
